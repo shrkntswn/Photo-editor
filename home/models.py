@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+class Photo(models.Model):
+	file = models.ImageField()
+	description = models.CharField(max_length=255, required=False)
+
+	class meta:
+		verbose_name ='Photo'
+		verbose_name_plural = 'photos'
