@@ -160,9 +160,9 @@
   <div class="row d-flex justify-content-center" style="margin-top: 20px">
     {% for photo in photos|slice:':2' %}
    
-      <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3">
         <small><b>{{photo.uploaded_at}}</b></small>
-        <img src="{{ photo.file.url }}" class="border border-dark thumbnail" style="height: 200px">
+        <img src="{{ photo.file.url }}" class="border border-dark thumbnail" style="width:100%;">
         <div class="slidecontainer">
         <input type="range" value="50" class="slider{{forloop.counter}}" name="slider{{forloop.counter}}" id="myRange{{forloop.counter}}">
         <p>Value: <span id="demo{{forloop.counter}}"></span></p>
@@ -180,7 +180,7 @@
       <div class="row d-flex justify-content-center">
         {% for output in outputs %}
         <div class="col-sm-6 col-md-4 col-lg-3">
-          <img src="{{ output.file.url }}" class="border border-dark thumbnail" style="height:200px">
+          <img src="{{ output.file.url }}" class="border border-dark thumbnail" style="width:100%;">
         </div>
         {% endfor %}
       </div>
