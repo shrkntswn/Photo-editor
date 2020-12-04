@@ -1,4 +1,8 @@
 {% extends 'home/base.html' %}
+{% block style %}
+<style>
+</style>
+{% endblock %}
 
 {% block javascript %}
   <script>
@@ -69,7 +73,37 @@
 
     });
   </script>
+
+  <script>
+      var slider1 = document.getElementById("myRange1");
+      var output1 = document.getElementById("demo1");
+      output1.innerHTML = slider1.value;
+
+      slider1.oninput = function() {
+        output1.innerHTML = this.value;
+      }
+
+      var slider2 = document.getElementById("myRange2");
+      var output2 = document.getElementById("demo2");
+      output2.innerHTML = slider2.value;
+
+      slider2.oninput = function() {
+        output2.innerHTML = this.value;
+      }
+
+      /*$(function() {
+       $( ".slider").slider({
+        step: 0.05,
+        slide: function(event, elt) {
+          $("#slider_control").val(elt.value);
+        }
+       })
+      });*/
+    
+  </script>
+ 
 {% endblock %}
+
 
 {% block content %}
 <div class="container my-5">
@@ -122,14 +156,32 @@
 
   <!-- CONTAINER TO DISPLAY THE CROPPED IMAGES -->
   <h1>Images</h1>
+  <form action="{% url 'home:photo_blend' %}" method="get">
   <div class="row" style="margin-top: 20px">
-    {% for photo in photos %}
+    {% for photo in photos|slice:':2' %}
       <div class="col-sm-6 col-md-4 col-lg-3">
         <small><b>{{photo.uploaded_at}}</b></small>
-        <img src="{{ photo.file.url }}" class="border border-dark thumbnail">
-        <p>{{photo.description}}</p>
-      </div>
+        <img src="{{ photo.file.url }}" class="border border-dark thumbnail" style="height: 200px">
+        <div class="slidecontainer">
+        <input type="range" value="50" class="slider{{forloop.counter}}" name="slider{{forloop.counter}}" id="myRange{{forloop.counter}}">
+          <p>Value: <span id="demo{{forloop.counter}}"></span></p>
+        </div>
+      </div>  
     {% endfor %}
+      <div class="col-md-6">
+        {% for output in outputs %}
+        <img src="{{ output.file.url }}" class="border border-dark thumbnail" style="height:250px">
+        {% endfor %}
+      </div>
   </div>
+
+  
+   <!-- <div name="slider" class="slider">
+      <input type="range" name="slider_control" id="slider_control" />
+    </div>-->
+  {% if count == 2 %}
+  <button class="btn btn-primary"type="submit">Blend</button>
+  {% endif %}
+  </form>
 </div>
 {% endblock %}

@@ -9,10 +9,9 @@ class PhotoForm(forms.ModelForm):
 	y = forms.FloatField(widget= forms.HiddenInput())  
 	width = forms.FloatField(widget= forms.HiddenInput())  
 	height = forms.FloatField(widget= forms.HiddenInput()) 
-	description = forms.CharField(label='Description', widget=forms.Textarea(attrs={'class': 'form-control', 'rows':3,}))
 	class Meta:
 		model = Photo
-		fields = ('description', 'file', 'x', 'y', 'width', 'height',)
+		fields = ('file', 'x', 'y', 'width', 'height',)
 
 	def save(self):
 		photo = super(PhotoForm, self).save()
@@ -23,6 +22,6 @@ class PhotoForm(forms.ModelForm):
 
 		image = Image.open(photo.file)
 		cropped_image = image.crop((x, y, w+x, h+y))
-		resized_image = cropped_image.resize((200, 200), Image.ANTIALIAS)
+		resized_image = cropped_image.resize((400, 400), Image.ANTIALIAS)
 		resized_image.save(photo.file.path)
 		return photo
