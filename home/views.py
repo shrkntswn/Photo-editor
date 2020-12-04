@@ -9,7 +9,7 @@ import os
 def photo_list(request):
 	photos = Photo.objects.all().order_by('-uploaded_at')
 	count = photos.count()
-	outputs = PhotoBlend.objects.all()
+	outputs = PhotoBlend.objects.all().order_by('-id')
 	if request.method == 'POST':
 		form = PhotoForm(data=request.POST, files=request.FILES)
 		if form.is_valid():
@@ -30,10 +30,8 @@ def photo_blend(request):
 	value1 = int(request.GET['slider1'])/100
 	value2 = int(request.GET['slider2'])/100
 	img = cv2.addWeighted(img1, value1, img2, value2, 0)
-	fileName = settings.MEDIA_ROOT+ '/output/' + 'savedimage.jpg'
+	fileName = settings.MEDIA_ROOT+ '/output/' + 'savedimage'+ str(photos[0].id) + str(photos[1].id) +'.jpg'
 	file = cv2.imwrite(fileName, img)
-	output = PhotoBlend.objects.all()
-	output.delete()
 	output = PhotoBlend.objects.create(file=fileName)
 	output.save()
 	return redirect('home:photo_list')
