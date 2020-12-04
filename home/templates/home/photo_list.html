@@ -170,7 +170,7 @@
     {% endfor %}
       <div class="col-md-6">
         {% for output in outputs %}
-        <img src="{{ output.file.url }}" class="border border-dark thumbnail" style="height:250px">
+        <img src="{{ output.file.url }}" class="border border-dark thumbnail" style="height:400px">
         {% endfor %}
       </div>
   </div>
@@ -179,7 +179,7 @@
    <!-- <div name="slider" class="slider">
       <input type="range" name="slider_control" id="slider_control" />
     </div>-->
-  {% if count == 2 %}
+  {% if count >= 2 %}
   <button class="btn btn-primary"type="submit">Blend</button>
   {% endif %}
   </form>
