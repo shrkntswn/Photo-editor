@@ -22,9 +22,9 @@ def photo_list(request):
 
 
 def photo_blend(request):
-	photos = Photo.objects.all()
-	image1= os.path.join(settings.BASE_DIR + '/' + photos.first().file.url)
-	image2= os.path.join(settings.BASE_DIR+ '/' + photos.last().file.url)
+	photos = Photo.objects.all().order_by('-uploaded_at')[:2]
+	image1= os.path.join(settings.BASE_DIR + '/' + photos[0].file.url)
+	image2= os.path.join(settings.BASE_DIR+ '/' + photos[1].file.url)
 	img1 = cv2.imread(image1, 1)
 	img2 = cv2.imread(image2, 1)
 	value1 = int(request.GET['slider1'])/100
