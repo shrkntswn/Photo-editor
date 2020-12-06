@@ -1,0 +1,108 @@
+{% extends 'home/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cartoonify</title>
+</head>
+<body>
+  {% block javascript %}
+  <script>
+  	  $("[id^=select]").click(function(){
+  	  	var pk = this.value
+  	  	console.log(pk)
+  	  
+      var slider1 = document.getElementById("myRange1"+pk);
+      var output1 = document.getElementById("demo1"+pk);
+      output1.innerHTML = slider1.value;
+
+      slider1.oninput = function() {
+        output1.innerHTML = this.value;
+      }
+      
+      var slider2 = document.getElementById("myRange2"+pk);
+      var output2 = document.getElementById("demo2"+pk);
+      output2.innerHTML = slider2.value;
+
+      slider2.oninput = function() {
+        output2.innerHTML = this.value;
+      }
+      })
+    
+  </script>
+  {% endblock %}
+
+	{% block content %}
+	<h2>All Photos</h2>
+	<div class="row">
+	{% for photo in photos %}
+		<div class="col-6 col-sm-4 col-md-2 mb-1">
+			<img src="{{photo.file.url}}" class="img-thumbnail border border-dark mb-1" style="max-width:200px; width:100%">
+    		<button type="button"  class="btn btn-primary btn-sm select" value="{{photo.id}}" id="select{{photo.id}}" data-toggle="modal" data-target="#modal{{photo.id}}">Cartoonify
+			</button>
+    		<div class="modal fade" id="modal{{photo.id}}">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <h5 class="modal-title">Your photo</h5>
+			          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            <span aria-hidden="true">&times;</span>
+			          </button>
+			        </div>
+			        <div class="modal-body d-flex justify-content-center">
+			          <img src="{{photo.file.url}}" class="img-thumbnail border border-dark" style="width:100%; max-width: 300px; align-items: center;">
+			        </div>
+			        <form action="{% url 'home:photo_cartoonify' id=photo.id %}" method="get">
+			        	<div class="slidecontainer px-4">
+					        <div class="inline-block">
+					        	<input type="range" value="100" min="1" max="200" class="slider" name="slider1" id="myRange1{{photo.id}}" style="width:100%">
+					        	<small>Sigma_s Value: <span id="demo1{{photo.id}}"></span></small>
+					        </div>
+					        <div class="inline-block">
+					        	<input type="range" value="50" min="1" max="100" class="slider" name="slider2" id="myRange2{{photo.id}}" style="width:100%">
+					        	<small>Sigma_r Value: <span id="demo2{{photo.id}}"></span></small>
+					        </div>
+			    		</div>
+			        <div class="modal-footer">
+			            <div class="btn-group" role="group">
+			    		  <div>
+			    		  	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+			         		<button class="btn btn-primary btn-sm" type="submit">Submit</button>
+			    		  </div>
+			            </div>
+			      </div>
+			      </form>
+			    </div>
+			  </div>
+			</div>
+        </div>
+	{% endfor %}
+	</div>
+	<hr>
+	<h2>Cartoonified Images</h2>
+	<div class="row">
+		{% for output in outputs %}
+		<div class="col-6 col-sm-4 col-md-2 mb-2">			
+			<button type="button"  class="btn btn-light btn-sm select"  data-toggle="modal" data-target="#modal{{output.id}}">
+				<img src="{{output.file.url}}" class="img-thumbnail border border-dark p-1" style="width:100%">
+			</button>
+			<div class="modal fade" id="modal{{output.id}}">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <h5 class="modal-title">Image</h5>
+			          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            <span aria-hidden="true">&times;</span>
+			          </button>
+			        </div>
+			        <div class="modal-body">
+			          <img src="{{output.file.url}}" class="img-thumbnail border border-dark mx-1" style="width:100%;">
+			        </div>
+			    </div>
+			  </div>
+			</div>			
+		</div>
+		{% endfor %}
+	</div>
+	{% endblock %}
+</body>
+</html>
