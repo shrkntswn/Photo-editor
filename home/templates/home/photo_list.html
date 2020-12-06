@@ -177,13 +177,30 @@
   {% endif %}
 </div>
     <h2>Creative images</h2>
-      <div class="row d-flex justify-content-center">
-        {% for output in outputs %}
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
-          <img src="{{ output.file.url }}" class="border border-dark img-thumbnail" style="width:100%;">
+      <div class="row">
+    {% for output in outputs %}
+    <div class="col-6 col-sm-4 col-md-2 mb-2">      
+      <button type="button"  class="btn btn-light btn-sm select"  data-toggle="modal" data-target="#modal{{output.id}}">
+        <img src="{{output.file.url}}" class="img-thumbnail border border-dark p-1" style="width:100%">
+      </button>
+      <div class="modal fade" id="modal{{output.id}}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <img src="{{output.file.url}}" class="img-thumbnail border border-dark mx-1" style="width:100%;">
+              </div>
+          </div>
         </div>
-        {% endfor %}
-      </div>
+      </div>      
+    </div>
+    {% endfor %}
+  </div>
 
   
    <!-- <div name="slider" class="slider">

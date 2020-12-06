@@ -6,4 +6,7 @@ media/
 home/migrations/0002_auto_20201203_2042.py
 home/migrations/0003_auto_20201204_0617.py
 photoeditor/__pycache__/
+home/migrations/0002_cartoonify.py
+home/migrations/0003_auto_20201206_0807.py
+
 
