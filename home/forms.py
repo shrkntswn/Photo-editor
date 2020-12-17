@@ -22,6 +22,6 @@ class PhotoForm(forms.ModelForm):
 
 		image = Image.open(photo.file)
 		cropped_image = image.crop((x, y, w+x, h+y))
-		resized_image = cropped_image.resize((400, 400), Image.ANTIALIAS)
+		resized_image = cropped_image.resize((480, 270), Image.ANTIALIAS)
 		resized_image.save(photo.file.path)
 		return photo
