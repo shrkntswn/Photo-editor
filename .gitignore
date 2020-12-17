@@ -3,7 +3,10 @@ home/__pycache__/
 home/migrations/0001_initial.py
 home/migrations/__pycache__/
 media/output/*
-media/*.*
+!media/output/.gitkeep
+media/*
+!media/output
+!media/.gitkeep
 home/migrations/0002_auto_20201203_2042.py
 home/migrations/0003_auto_20201204_0617.py
 photoeditor/__pycache__/
