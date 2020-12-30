@@ -10,4 +10,7 @@ A simple photo editor app using django-3.1 and bootstrap-4
 <img src="Screenshots/pic7.jpg"><br>
 <h3>Screenshot 3</h3>
 <img src="Screenshots/savedimage2827.jpg"><br>
+<h3>Screenshot 4</h3>
+<p>Comaparision between original and cartoonified image</p>
+<img src="Screenshots/comparision.jpg">
 
